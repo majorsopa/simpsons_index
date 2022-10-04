@@ -5,7 +5,6 @@ fn main() {
         println!("Enter e to exit");
         loop {
             println!("Number of species {}:", i);
-            i += 1;
             let mut n = String::new();
             std::io::stdin().read_line(&mut n).unwrap();
 
@@ -14,7 +13,15 @@ fn main() {
                 break;
             }
 
-            let n = n.parse::<u64>().unwrap();
+            let n = match n.parse::<u64>() {
+                Ok(n) => n,
+                Err(_) => {
+                    println!("Invalid input {}", n);
+                    continue;
+                }
+            };
+
+            i += 1;
             n_total += n;
             ni_total += n * (n - 1);
         }
